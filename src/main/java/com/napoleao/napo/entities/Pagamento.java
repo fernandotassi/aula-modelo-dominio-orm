@@ -2,14 +2,12 @@ package com.napoleao.napo.entities;
 
 import java.time.Instant;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -17,28 +15,23 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "pagamento")
 @Getter
 @Setter
 @ToString
-public class Pedido 
+public class Pagamento 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(columnDefinition = "timestamp without time zone")
 	private Instant momento;
-	private StatusPedido status;
 	
-	@ManyToOne
-	@JoinColumn(name="cliente_id")
-	private Usuario cliente;
+	@OneToOne
+	@MapsId
+	private Pedido pedido;
 	
-	@OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL) 
-	private Pagamento pagamento;
-	
-	public Pedido(){}
-	public Pedido(Long id, Instant momento, StatusPedido status, Usuario cliente, Pagamento pagamento)
-	{this.id = id; this.momento = momento; this.status = status; this.cliente = cliente; 
-	 this.pagamento = pagamento;}
+	public Pagamento(){}
+	public Pagamento(Long id, Instant momento, Pedido pedido)
+	{this.id = id; this.momento = momento; this.pedido = pedido;}
 }

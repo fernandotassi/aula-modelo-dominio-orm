@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,6 +35,7 @@ public class Usuario implements Serializable
 	private String password;
 	
 	@OneToMany(mappedBy = "cliente")
+	@Setter(AccessLevel.NONE)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Usuario(){}
