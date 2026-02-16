@@ -16,9 +16,6 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "pagamento")
-@Getter
-@Setter
-@ToString
 public class Pagamento 
 {
 	@Id
@@ -34,4 +31,13 @@ public class Pagamento
 	public Pagamento(){}
 	public Pagamento(Long id, Instant momento, Pedido pedido)
 	{this.id = id; this.momento = momento; this.pedido = pedido;}
+	
+	
+	public void setId(Long id){this.id = id;}
+	public void setMomento(Instant momento){this.momento = momento;}
+	public void setPedido(Pedido pedido){this.pedido = pedido;}
+	
+	public Long getId(){return id;}
+	public Instant getMomento(){return momento;}
+	public Pedido getPedido(){return pedido;}
 }
