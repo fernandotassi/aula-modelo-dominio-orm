@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class Usuario implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	@Column(unique = true)
 	private String email;
 	private String fone;
 	private LocalDate niver;
