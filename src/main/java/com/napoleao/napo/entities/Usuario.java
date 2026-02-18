@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -55,5 +56,20 @@ public class Usuario implements Serializable
 	public String getEmail(){return email;}
 	public String getFone(){return fone;}
 	public LocalDate getNiver(){return niver;}
-	public String getSenha(){return senha;}	
+	public String getSenha(){return senha;}
+	
+	@Override
+	public int hashCode(){return Objects.hash(id);}
+	@Override
+	public boolean equals(Object obj) 
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(id, other.id);
+	}		
 }

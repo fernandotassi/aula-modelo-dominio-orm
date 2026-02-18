@@ -3,6 +3,7 @@ package com.napoleao.napo.entities;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -37,5 +38,20 @@ public class Categoria
 	public void setNome(String nome){this.nome = nome;}
 	public Long getId(){return id;}
 	public String getNome(){return nome;}
-	public Set<Produto> getProdutos(){return produtos;}	
+	public Set<Produto> getProdutos(){return produtos;}
+	
+	@Override
+	public int hashCode(){return Objects.hash(id);}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		return Objects.equals(id, other.id);
+	}	
 }
