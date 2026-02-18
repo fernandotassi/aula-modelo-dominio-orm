@@ -1,3 +1,4 @@
+
 package com.napoleao.napo.entities;
 
 import java.io.Serializable;
@@ -31,28 +32,28 @@ public class Usuario implements Serializable
 	private String email;
 	private String fone;
 	private LocalDate niver;
-	private String password;
+	private String senha;
 	
 	@OneToMany(mappedBy = "cliente")
 	@Setter(AccessLevel.NONE)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Usuario(){}
-	public Usuario(Long id, String nome, String email, String fone, LocalDate niver, String password)
+	public Usuario(Long id, String nome, String email, String fone, LocalDate niver, String senha)
 	{this.id = id; this.nome = nome; this.email = email; this.fone = fone; this.niver = niver; 
-	 this.password = password; this.password = password;}
+	 this.senha = senha;}
 	
 	public void setId(Long id){this.id = id;}
 	public void setNome(String nome){this.nome = nome;}
 	public void setEmail(String email){this.email = email;}
 	public void setFone(String fone){this.fone = fone;}
 	public void setNiver(LocalDate niver){this.niver = niver;}
-	public void setPassword(String password){this.password = password;}
+	public void setSenha(String senha){this.senha = senha;}
 	
 	public Long getId(){return id;}
 	public String getNome(){return nome;}
 	public String getEmail(){return email;}
 	public String getFone(){return fone;}
 	public LocalDate getNiver(){return niver;}
-	public String getPassword(){return password;}	
+	public String getSenha(){return senha;}	
 }

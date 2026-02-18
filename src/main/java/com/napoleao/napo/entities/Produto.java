@@ -30,32 +30,31 @@ public class Produto
 	@Column(columnDefinition = "text")
 	private String descricao;
 	private Double preco;
-	private String imgUri;
+	private String imgUrl;
 	
 	@ManyToMany
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "id_produto"),
 	           inverseJoinColumns = @JoinColumn(name = "id_categoria"))
-	@Setter(AccessLevel.NONE)
 	private Set<Categoria> categorias = new HashSet<>();
 	
 	@OneToMany(mappedBy = "id.produto")
 	private Set<Item> pegaPedido = new HashSet<>();
 	
 	public Produto(){}
-	public Produto(Long id, String nome, String descricao, Double preco, String imgUri)
-	{this.id = id; this.nome = nome; this.descricao = descricao; this.preco = preco; this.imgUri = imgUri;}
+	public Produto(Long id, String nome, String descricao, Double preco, String imgUrl)
+	{this.id = id; this.nome = nome; this.descricao = descricao; this.preco = preco; this.imgUrl = imgUrl;}
 		
 	public void setId(Long id){this.id = id;}
 	public void setNome(String nome){this.nome = nome;}	
 	public void setDescricao(String descricao){this.descricao = descricao;}
 	public void setPreco(Double preco){this.preco = preco;}	
-	public void setImgUri(String imgUri){this.imgUri = imgUri;}	
+	public void setImgUrl(String imgUri){this.imgUrl = imgUri;}	
 
 	public Long getId(){return id;}
 	public String getNome(){return nome;}
 	public String getDescricao(){return descricao;}
 	public Double getPreco(){return preco;}
-	public String getImgUri(){return imgUri;}
+	public String getImgUrl(){return imgUrl;}
 	public Set<Categoria> getCategorias(){return categorias;}
 	public Set<Item> getPedido(){return pegaPedido;}
 	

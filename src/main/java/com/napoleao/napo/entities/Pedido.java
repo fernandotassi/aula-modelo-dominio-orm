@@ -29,7 +29,7 @@ public class Pedido
 	private Long id;
 	@Column(columnDefinition = "timestamp without time zone")
 	private Instant momento;
-	private StatusPedido status;
+	private StatusPedido estado;
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
@@ -42,19 +42,19 @@ public class Pedido
 	private Set<Item> pegaProduto = new HashSet<>(); 
 	
 	public Pedido(){}
-	public Pedido(Long id, Instant momento, StatusPedido status, Usuario cliente, Pagamento pagamento)
-	{this.id = id; this.momento = momento; this.status = status; this.cliente = cliente; 
+	public Pedido(Long id, Instant momento, StatusPedido estado, Usuario cliente, Pagamento pagamento)
+	{this.id = id; this.momento = momento; this.estado = estado; this.cliente = cliente; 
 	 this.pagamento = pagamento;}
 	
 	public void setId(Long id){	this.id = id;}	
 	public void setMomento(Instant momento){this.momento = momento;}	
-	public void setStatus(StatusPedido status){this.status = status;}	
+	public void setEstado(StatusPedido status){this.estado = estado;}	
 	public void setCliente(Usuario cliente){this.cliente = cliente;}
 	public void setPagamento(Pagamento pagamento){this.pagamento = pagamento;}
 	
 	public Long getId(){return id;}
 	public Instant getMomento(){return momento;}
-	public StatusPedido getStatus(){return status;}
+	public StatusPedido getEstado(){return estado;}
 	public Usuario getCliente(){return cliente;}
 	public Pagamento getPagamento(){return pagamento;}
 	public Set<Item> getPegaProduto(){return pegaProduto;}
