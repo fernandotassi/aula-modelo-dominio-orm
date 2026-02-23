@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import com.napoleao.napo.dto.ProdutoDTO;
 import com.napoleao.napo.entities.Produto;
@@ -20,7 +22,9 @@ public class ProdutoControlador
 	@GetMapping(value = "/{id}")
 	public ProdutoDTO encontraPelo(@PathVariable Long id)
 	{
-	   return prodserv.encontraPeloId(id);	   
-	  
+	   return prodserv.encontraPeloId(id);	   	  
 	}
+	
+	@GetMapping
+	public Page<ProdutoDTO> encontraTodos(Pageable pageable){return prodserv.encontraTodos(pageable);}
 }
