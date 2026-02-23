@@ -1,5 +1,6 @@
 package com.napoleao.napo.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +23,10 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "produto")
-public class Produto 
+public class Produto implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,7 +40,7 @@ public class Produto
 	@JoinTable(name = "produto_categoria", joinColumns = @JoinColumn(name = "id_produto"),
 	           inverseJoinColumns = @JoinColumn(name = "id_categoria"))
 	private Set<Categoria> categorias = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "id.produto")
 	private Set<Item> pegaPedido = new HashSet<>();
 	

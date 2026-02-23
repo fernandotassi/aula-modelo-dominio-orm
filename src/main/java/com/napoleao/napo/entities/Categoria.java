@@ -27,7 +27,6 @@ public class Categoria
 	private String nome;
 	
 	@ManyToMany(mappedBy = "categorias")
-	@Setter(AccessLevel.NONE)
 	private Set<Produto> produtos = new HashSet<>(); 
 	
 	public Categoria(){}

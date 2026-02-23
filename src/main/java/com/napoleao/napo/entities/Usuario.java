@@ -36,7 +36,6 @@ public class Usuario implements Serializable
 	private String senha;
 	
 	@OneToMany(mappedBy = "cliente")
-	@Setter(AccessLevel.NONE)
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	public Usuario(){}
