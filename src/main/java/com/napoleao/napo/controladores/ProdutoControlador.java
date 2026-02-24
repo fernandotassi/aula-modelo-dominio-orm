@@ -1,5 +1,6 @@
 package com.napoleao.napo.controladores;
 
+import java.lang.System.Logger;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,5 +45,19 @@ public class ProdutoControlador
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				  .buildAndExpand(res.getId()).toUri();
 		return ResponseEntity.created(uri).body(res);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<ProdutoDTO> atualiza(@PathVariable Long id, @RequestBody ProdutoDTO dto)
+	{
+		dto = prodserv.atualizar(id, dto);
+		return ResponseEntity.ok(dto);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Long id)
+	{
+		prodserv.deletar(id);
+    	return ResponseEntity.noContent().build();
 	}
 }

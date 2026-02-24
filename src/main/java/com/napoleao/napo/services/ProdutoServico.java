@@ -36,8 +36,32 @@ public class ProdutoServico
 	@Transactional
 	public ProdutoDTO inserir(ProdutoDTO dto)
 	{
-		Produto prod = new Produto(dto.getNome(), dto.getDescricao(), dto.getPreco(), dto.getImgUrl());
+		Produto prod = new Produto();
+		transformaDtoProduto(prod, dto);
 		prodrepo.save(prod);
 		return new ProdutoDTO(prod);
+	}
+	
+	@Transactional
+	public ProdutoDTO atualizar(Long id, ProdutoDTO dto)
+	{
+		Produto prod = prodrepo.getReferenceById(id);
+		transformaDtoProduto(prod, dto);
+		prod = prodrepo.save(prod);
+		return new ProdutoDTO(prod);
+	}
+	
+	@Transactional
+	public void deletar(Long id)
+	{
+        prodrepo.deleteById(id);
+	}
+	
+	private void transformaDtoProduto(Produto prod, ProdutoDTO dto)
+	{
+		prod.setNome(dto.getNome());
+		prod.setDescricao(dto.getDescricao());
+		prod.setPreco(dto.getPreco());
+		prod.setImgUrl(dto.getImgUrl());
 	}
 }
