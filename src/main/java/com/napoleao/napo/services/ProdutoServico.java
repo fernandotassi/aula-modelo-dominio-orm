@@ -2,15 +2,24 @@ package com.napoleao.napo.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.coyote.http11.filters.IdentityInputFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.napoleao.napo.dto.ProdutoDTO;
 import com.napoleao.napo.entities.Produto;
 import com.napoleao.napo.repositorios.ProdutoRepositorio;
+import com.napoleao.napo.services.excecoes.ExcecaoBancoDados;
 import com.napoleao.napo.services.excecoes.ExcecaoRecursoNaoEncontrado;
+
+import jakarta.persistence.EntityNotFoundException;
+import tools.jackson.databind.exc.InvalidDefinitionException;
 
 @Service
 public class ProdutoServico 
@@ -46,16 +55,28 @@ public class ProdutoServico
 	@Transactional
 	public ProdutoDTO atualizar(Long id, ProdutoDTO dto)
 	{
-		Produto prod = prodrepo.getReferenceById(id);
-		transformaDtoProduto(prod, dto);
-		prod = prodrepo.save(prod);
-		return new ProdutoDTO(prod);
+		    if(!prodrepo.existsById(id))
+		    	throw new ExcecaoRecursoNaoEncontrado("recurso não encontrado");
+		   
+				Produto prod = prodrepo.getReferenceById(id);
+				transformaDtoProduto(prod, dto);
+				prod = prodrepo.save(prod);
+				return new ProdutoDTO(prod);
+		    
+				
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void deletar(Long id)
 	{
-        prodrepo.deleteById(id);
+        if(!prodrepo.existsById(id))
+        	throw new ExcecaoRecursoNaoEncontrado("recurso não encontrado");
+        try
+        {
+        	prodrepo.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e) 
+        {throw new ExcecaoBancoDados("violação na integridade referencial");}
 	}
 	
 	private void transformaDtoProduto(Produto prod, ProdutoDTO dto)
