@@ -32,4 +32,12 @@ public class ProdutoServico
 		Page<Produto> produtos = prodrepo.findAll(pageable);
 		return produtos.map(x -> new ProdutoDTO(x));
 	}
+	
+	@Transactional
+	public ProdutoDTO inserir(ProdutoDTO dto)
+	{
+		Produto prod = new Produto(dto.getNome(), dto.getDescricao(), dto.getPreco(), dto.getImgUrl());
+		prodrepo.save(prod);
+		return new ProdutoDTO(prod);
+	}
 }
