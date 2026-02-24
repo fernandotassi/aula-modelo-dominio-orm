@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.napoleao.napo.dto.ProdutoDTO;
 import com.napoleao.napo.entities.Produto;
 import com.napoleao.napo.repositorios.ProdutoRepositorio;
+import com.napoleao.napo.services.excecoes.ExcecaoRecursoNaoEncontrado;
 
 @Service
 public class ProdutoServico 
@@ -21,7 +22,7 @@ public class ProdutoServico
 	public ProdutoDTO encontraPeloId(Long id)
 	{
 		Optional<Produto> res = prodrepo.findById(id);
-		Produto prod = res.get();
+		Produto prod = res.orElseThrow(() -> new ExcecaoRecursoNaoEncontrado("recurso não encontrado"));
 		ProdutoDTO dto = new ProdutoDTO(prod);
 		return dto;
 	}
