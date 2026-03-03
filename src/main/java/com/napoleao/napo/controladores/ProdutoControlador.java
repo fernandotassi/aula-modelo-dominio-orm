@@ -17,6 +17,8 @@ import com.napoleao.napo.entities.Produto;
 import com.napoleao.napo.repositorios.ProdutoRepositorio;
 import com.napoleao.napo.services.ProdutoServico;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/produtoses")
 public class ProdutoControlador
@@ -39,7 +41,7 @@ public class ProdutoControlador
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProdutoDTO> inserir(@RequestBody ProdutoDTO dto)
+	public ResponseEntity<ProdutoDTO> inserir(@Valid @RequestBody ProdutoDTO dto)
 	{
 		ProdutoDTO res = prodserv.inserir(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -48,7 +50,7 @@ public class ProdutoControlador
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProdutoDTO> atualiza(@PathVariable Long id, @RequestBody ProdutoDTO dto)
+	public ResponseEntity<ProdutoDTO> atualiza(@PathVariable Long id, @Valid @RequestBody ProdutoDTO dto)
 	{
 		dto = prodserv.atualizar(id, dto);
 		return ResponseEntity.ok(dto);

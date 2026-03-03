@@ -61,9 +61,7 @@ public class ProdutoServico
 				Produto prod = prodrepo.getReferenceById(id);
 				transformaDtoProduto(prod, dto);
 				prod = prodrepo.save(prod);
-				return new ProdutoDTO(prod);
-		    
-				
+				return new ProdutoDTO(prod);			
 	}
 	
 	@Transactional(propagation = Propagation.SUPPORTS)

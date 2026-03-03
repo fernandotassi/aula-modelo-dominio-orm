@@ -2,11 +2,20 @@ package com.napoleao.napo.dto;
 
 import com.napoleao.napo.entities.Produto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class ProdutoDTO 
 {
 	private Long id;
+	@Size(min = 3, max = 80, message = "3 a 80 caracteres")
+	@NotBlank(message = "campo obrigatório")
 	private String nome;
+	@Size(min = 10, message = "minímo 10 caracteres")
+	@NotBlank(message = "campo obrigatório")
 	private String descricao;
+	@Positive(message = "preço é positivo")
 	private Double preco;
 	private String imgUrl;
 	
